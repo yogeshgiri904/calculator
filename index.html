@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pandit Ji - Calculator</title>
+  <style>
+    $normal_font_size: 16px;
+$medium_font_size: 18px;
+$large_font_size: 40px;
+$blue: rgb(87, 179, 254);
+$blue_glow: rgb(82, 147, 205);
+$blue_dark: rgb(156, 188, 221);
+$blue_shadow: rgb(229, 243, 254);
+$box_shadow: 0px 15px 10px -8px $blue_shadow;
+$border_radius: 5px;
+* {
+  box-sizing: border-box;
+  font-family: "Segoe UI";
+   user-select: none;
+        -moz-user-select: none;
+        -khtml-user-select: none;
+        -webkit-user-select: none;
+        -o-user-select: none;
+}
+.page {
+  position: fixed;
+  background-color: rgb(57, 72, 101);
+  height: 100%;
+  width: 100%;
+  padding: 20px 50px 20px 50px;
+}
+
+.calculator {
+  width: 300px;
+  height: 450px;
+  background: white;
+  margin: 0 auto;
+  border-radius: $border_radius;
+  text-align: center;
+  box-shadow: 0 0 50px $blue_glow;
+}
+
+.display {
+  width: 100%;
+  height: 35%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  box-shadow: $box_shadow;
+  padding: 35px 55px 0px 0px;
+  border-radius: $border_radius;
+}
+
+.previous {
+  font-size: $medium_font_size;
+  font-weight: 100;
+
+  color: grey;
+}
+.current {
+  margin-top: 20px;
+  margin-bottom:20px;
+  font-size: $large_font_size;
+  font-weight: 150;
+  height: 100px;
+  position: relative;
+  overflow-wrap: break-word;
+  overflow-x: hidden;
+  overflow-y: auto;
+  // float:right;
+}
+
+.sign {
+  display: inline-block;
+  font-size: 28px;
+  padding-left: 10px;
+  padding-right: 10px;
+  color: $blue;
+  position: relative;
+  bottom: 5px;
+  // width:100px
+  // position:relative;
+}
+
+.square {
+  display: inline-block;
+  // position:absolute;
+  // right:-10px;
+  position: relative;
+  font-size: 12px;
+  bottom: 30px;
+  color: $blue;
+}
+
+.inputs {
+  padding: 35px 35px 40px 35px;
+  height: 65%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  
+}
+
+.input {
+  font-size: $normal_font_size;
+  // display: inline-block;
+  position:relative;
+  color:grey;
+    animation-duration:0.5s;
+  animation-timing-function:ease-out;
+    box-shadow: 0 6px 20px 5px $blue_shadow;
+
+
+}
+
+.input:active {
+  animation-name: input_clicked;
+  animation-duration:0.5s;
+  animation-timing-function:ease-out;
+}
+
+@keyframes input_clicked {
+  25% {
+    font-size:$normal_font_size+2px;
+    color:black;
+  }
+  
+  100% {font-size:$normal_font_size;
+  color:black;
+  }
+}
+
+.operator, .input {
+  font-size: $normal_font_size;
+  display: inline-block;
+  height: 45px;
+  width: 45px;
+  background: white;
+  box-shadow: 0 6px 20px 5px $blue_shadow;
+  border-radius: 20px;
+  color: $blue;
+  text-align: center;
+  line-height: 45px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-around;
+}
+
+.equals {
+  position: relative;
+  width: 190px;
+  height: 50px;
+  margin: auto;
+  background-color: $blue;
+  border: none;
+  color: white;
+  font-size: 35px;
+  border-radius: $border_radius;
+  bottom: 25px;
+  text-align: center;
+  box-shadow: 0 6px 50px $blue_glow;
+}
+
+
+.c {
+  font-weight: bold;
+  color: rgb(251, 175, 176);
+  box-shadow: 0 6px 20px 5px #ffcccb;
+  border: none;
+}
+
+
+// .scrollbar
+// {
+// 	margin-left: 30px;
+// 	float: left;
+// 	height: 300px;
+// 	width: 65px;
+// 	background: #F5F5F5;
+// 	overflow-y: scroll;
+// 	margin-bottom: 25px;
+// }
+
+#style-2::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  background-color: #f5f5f5;
+  position: absolute;
+  
+}
+
+#style-2::-webkit-scrollbar {
+  width: 12px;
+  background-color: #f5f5f5;
+  // position:absolute;
+}
+
+#style-2::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: $blue;
+  // position:absolute;
+}
+
+#style-3::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #f5f5f5;
+  border-radius:$border_radius;
+ 
+}
+
+#style-3::-webkit-scrollbar {
+  width: 3px;
+  background-color: #f5f5f5;
+    border-radius:$border_radius;
+
+}
+
+#style-3::-webkit-scrollbar-thumb {
+  background-color: $blue;
+    border-radius:$border_radius;
+
+}
+
+  </style>
+</head>
+<body>
+  <div class="page">
+  <div class="calculator">
+    <div class="display">
+      <span class="previous"></span>
+      <span id="style-3" class="current">
+      </span>
+    </div>
+    <div class="inputs">
+      <div class="row">
+        <div id="7" class="input">7</div>
+        <div id="8" class="input">8</div>
+        <div id="9" class="input">9</div>
+        <div id="/" class="operator">÷</div>
+      </div>
+      <div class="row">
+        <div id="4" class="input">4</div>
+        <div id="5" class="input">5</div>
+        <div id="6" class="input">6</div>
+        <div id="*" class="operator">×</div>
+      </div>
+      <div class="row">
+        <div id="1" class="input">1</div>
+        <div id="2" class="input">2</div>
+        <div id="3" class="input">3</div>
+        <div id="-" class="operator">-</div>
+      </div>
+      <div class="row">
+        <div id="reset" class="c  input">C</div>
+        <div id="0" class="input">0</div>
+        <div id="." class="input">.</div>
+        <div id="+" class="operator">+</div>
+      </div>
+    </div>
+    <button id="equals" class="equals">=</button>
+  </div>
+
+</div>
+</body>
+</html>
+<script>
+  (function() {
+  var currentInput = [];
+  var currentCalculated = null;
+  var previousInput = [];
+  var numberInputs = getElement(".input:not(.c)");
+  var operatorInputs = getElement(".operator");
+  var equalsButton = getElement("#equals");
+  var resetButton = getElement("#reset");
+  var previousViewer = getElement(".previous")[0];
+  var currentViewer = getElement(".current")[0];
+
+  function onNumberClicked() {
+    let value = this.getAttribute("id");
+    currentInput.push(value);
+    render();
+  }
+
+  function onOperatorClicked() {
+    let value = this.getAttribute("id");
+    if (previousInput.length > 0 && currentInput.length < 1)
+      currentInput = currentInput.concat(
+        roundNum(eval(previousInput.join("")))
+      );
+    currentInput.push(value);
+    render();
+  }
+
+  function roundNum(num) {
+    return Math.round(num * 100) / 100;
+  }
+  function onEqualClicked() {
+    currentCalculated = eval(currentInput.join(""));
+    currentCalculated = roundNum(currentCalculated);
+
+    previousInput = currentInput.splice(0);
+    currentInput = [];
+    render();
+  }
+
+  function onResetClicked() {
+    currentInput = [];
+    previousInput = [];
+    render();
+  }
+
+  function getElement(element) {
+    return element.charAt(0) === "#"
+      ? document.querySelector(element)
+      : document.querySelectorAll(element);
+  }
+
+  function render() {
+    function renderPrevious() {
+      previousViewer.innerHTML = previousInput.join("");
+    }
+    function renderCurrent() {
+      const inputMapping = {
+        "/": "÷",
+        "*": "×"
+      };
+      currentViewer.innerHTML = "";
+      if (currentCalculated==null) {
+        currentInput.forEach(e => {
+          if (["/", "*", "-", "+"].includes(e)) {
+            let spanNumber = document.createElement("span");
+            spanNumber.className = "sign";
+            spanNumber.innerHTML = inputMapping[e] || e;
+            currentViewer.appendChild(spanNumber);
+          } else {
+            let spanNumber = document.createElement("span");
+            spanNumber.innerHTML = inputMapping[e] || e;
+            currentViewer.appendChild(spanNumber);
+          }
+        });
+      } else {
+        currentViewer.innerHTML = currentCalculated;
+        currentCalculated = null;
+      }
+    }
+    renderPrevious();
+    renderCurrent();
+  }
+
+  numberInputs.forEach(e => {
+    e.onclick = onNumberClicked;
+  });
+
+  operatorInputs.forEach(e => {
+    e.onclick = onOperatorClicked;
+  });
+
+  equalsButton.onclick = onEqualClicked;
+  resetButton.onclick = onResetClicked;
+})();
+
+</script>
